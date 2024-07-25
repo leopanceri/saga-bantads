@@ -12,14 +12,15 @@ public class ClienteProducer {
 	private RabbitTemplate template;
 	
 	@Autowired
-	private Queue queue;
+	//private Queue queue;
 	
 	public void teste1(ClienteDTO clienteDto) {
 		//Message msg = new Message(clienteDto.getNome().getBytes());
 		template.convertAndSend("clientes.v1.cliente-novo", clienteDto);
 	}
-	public ClienteTransfer sendAndRecieve(ClienteDTO clienteDto, String act) {
-		ClienteTransfer clienteTransfer = new ClienteTransfer(clienteDto, act);
+	public ClienteTransfer teste2(ClienteDTO clienteDto, String act) {
+		ClienteTransfer clienteTransfer = new ClienteTransfer(clienteDto, "NULL", act);
+		
 		return (ClienteTransfer) this.template.convertSendAndReceive("clientes.v1.cliente-novo",clienteTransfer);
 	}
 }

@@ -11,6 +11,7 @@ import br.net.dac.saga.dto.*;
 @CrossOrigin
 @RestController
 public class SagaRest {
+	
 	@Autowired
 	private ClienteProducer clienteProducer;
 

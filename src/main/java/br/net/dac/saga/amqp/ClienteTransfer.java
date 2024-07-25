@@ -5,9 +5,11 @@ import java.io.Serializable;
 import br.net.dac.saga.dto.ClienteDTO;
 
 public class ClienteTransfer implements Serializable {
-	ClienteDTO clienteDto;
-	String action;
-	String message;
+	
+	private static final long serialVersionUID = 1L;
+	private ClienteDTO clienteDto;
+	private String action;
+	private String message;
 	
 	public ClienteTransfer() {
 		
