@@ -10,37 +10,45 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import br.net.dac.saga.autocadastro.ClienteProducer;
+
 @Configuration
 public class RabbitMQConfig {
 
-	@Bean
-	public Queue clienteQueue() {
-		return new Queue("clientes.v1.cliente-novo");	
+    @Bean
+    Queue novoclienteQueue() {
+		return new Queue("clientes.v1.cliente-novo");	//fila que envia o cliente para cadastro ou atualização
 	}
-	
-	@Bean
-    public ClienteProducer clienteProducer() {
+    
+    @Bean 
+    Queue clienteCadastradoQueue(){
+    	return new Queue("cliente-resposta");    //fila de retorno com o cliente cadastrado no banco
+    }
+    
+
+    @Bean
+    ClienteProducer clienteProducer() {
         return new ClienteProducer();
     }
-	
-	@Bean
-	public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFacctory) {
+
+    @Bean
+    RabbitAdmin rabbitAdmin(ConnectionFactory connectionFacctory) {
 		return new RabbitAdmin(connectionFacctory);
 	}
-	
-	@Bean
-	public ApplicationListener<ApplicationReadyEvent> appListener(RabbitAdmin rabbitAdmin){
+
+    @Bean
+    ApplicationListener<ApplicationReadyEvent> appListener(RabbitAdmin rabbitAdmin){
 		return event -> rabbitAdmin.initialize();
 	}
-	
-	@Bean
-	public Jackson2JsonMessageConverter messageConverter() {
+
+    @Bean
+    Jackson2JsonMessageConverter messageConverter() {
 		return new Jackson2JsonMessageConverter();
 	}
-	
-	@Bean
-	public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFacctory,
-										Jackson2JsonMessageConverter messageConverter) {
+
+    @Bean
+    RabbitTemplate rabbitTemplate(ConnectionFactory connectionFacctory,
+                               Jackson2JsonMessageConverter messageConverter) {
 		RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFacctory);
 		rabbitTemplate.setMessageConverter(messageConverter);
 		return rabbitTemplate;
