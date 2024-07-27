@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import br.net.dac.saga.amqp.*;
-import br.net.dac.saga.autocadastro.ClienteProducer;
+import br.net.dac.saga.autocadastro.*;
 import br.net.dac.saga.dto.*;
 
 @CrossOrigin

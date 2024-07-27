@@ -6,8 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import br.net.dac.saga.dto.ClienteDTO;
+import br.net.dac.saga.dto.ClienteTransfer;
 
 public class ClienteProducer {
+	
 	@Autowired
 	private RabbitTemplate template;
 	/*

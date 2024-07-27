@@ -1,7 +1,4 @@
-package br.net.dac.saga.autocadastro;
-
-
-import br.net.dac.saga.dto.ClienteDTO;
+package br.net.dac.saga.dto;
 
 public class ClienteTransfer {
 	
