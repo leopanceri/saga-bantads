@@ -1,4 +1,4 @@
-package br.net.dac.saga.amqp;
+package br.net.dac.saga.config.rabbitmq;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -17,7 +17,7 @@ public class RabbitMQConfig {
 
     @Bean
     Queue novoclienteQueue() {
-		return new Queue("clientes.v1.cliente-novo");	//fila que envia o cliente para cadastro ou atualização
+		return new Queue("cliente-crud");	//fila que envia o cliente para cadastro ou atualização
 	}
     
     @Bean 

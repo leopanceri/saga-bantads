@@ -12,14 +12,9 @@ public class ClienteProducer {
 	
 	@Autowired
 	private RabbitTemplate template;
-	/*
-	public void teste1(ClienteDTO clienteDto) {
-		//Message msg = new Message(clienteDto.getNome().getBytes());
-		template.convertAndSend("clientes.v1.cliente-novo", clienteDto);
-	}
-	*/
+	
 	public void enviaCliente(ClienteDTO clienteDto, String msg) {
 		ClienteTransfer clienteTransfer = new ClienteTransfer(clienteDto, msg);
-		template.convertAndSend("clientes.v1.cliente-novo", clienteTransfer);
+		template.convertAndSend("cliente-crud", clienteTransfer);
 	}
 }
