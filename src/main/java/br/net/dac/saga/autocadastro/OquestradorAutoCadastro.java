@@ -36,14 +36,14 @@ public class OquestradorAutoCadastro {
 		}
 	}
 	
-	@RabbitListener(queues = "")
+	@RabbitListener(queues = "FILA-CONTA-RESPOSTA")
 	public void respostaCadastroNovaConta(ClienteTransfer clienteTransfer) {
 		UsuarioDTO usuarioDto = new UsuarioDTO();
 		usuarioDto.setUsuario(clienteTransfer.getClienteDto().getEmail());
 		usuarioDto.setPerfil("CLIENTE");
 		switch (clienteTransfer.getMessage()) {
 		case "SUCESSO":
-			template.convertAndSend("", usuarioDto);
+			template.convertAndSend("fila-test", usuarioDto);
 			break;
 		case "FALHA":
 			template.convertAndSend("FILA-FALHA-CADASTRO-CLIENTE", usuarioDto);

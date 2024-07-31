@@ -17,12 +17,12 @@ public class RabbitMQConfig {
 
     @Bean
     Queue novoclienteQueue() {
-		return new Queue("FILA-CLIENTE-CRUD");	//fila que envia o cliente para cadastro ou atualização
+		return new Queue("FILA-CLIENTE-CRUD");	            //fila que envia o cliente para cadastro ou atualização
 	}
     
     @Bean 
     Queue clienteCadastradoQueue(){
-    	return new Queue("FILA-CLIENTE-RESPOSTA");    //fila de retorno com o cliente cadastrado no banco
+    	return new Queue("FILA-CLIENTE-RESPOSTA");          //fila de retorno com o cliente cadastrado no banco
     }
     
     @Bean 
@@ -33,6 +33,11 @@ public class RabbitMQConfig {
     @Bean
     Queue cadastraNovaContaQueue() {
     	return new Queue("FILA_REGISTRO_CONTA_CLIENTE");   //fila para cadastro de nova conta
+    }
+    
+    @Bean
+    Queue respostaContaQueue() {
+    	return new Queue ("FILA-CONTA-RESPOSTA");          //fila resposta criação de conta
     }
     
     
