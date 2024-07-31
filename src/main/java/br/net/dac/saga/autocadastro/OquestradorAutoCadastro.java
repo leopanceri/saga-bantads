@@ -13,15 +13,41 @@ public class OquestradorAutoCadastro {
 	@Autowired
 	private RabbitTemplate template;
 	
-	@RabbitListener(queues= "cliente-resposta")
+	@Autowired
+	private ClienteProducer clienteProducer;
+	
+	
+	
+	@RabbitListener(queues= "FILA-CLIENTE-RESPOSTA")
 	public void recebeClienteCadastrado(ClienteTransfer clienteTransfer) {
 		if(clienteTransfer.getMessage().equals("CRIADO")) {
 			System.out.print(clienteTransfer.getClienteDto().getId());
 			System.out.print(clienteTransfer.getClienteDto().getNome());
+			template.convertAndSend("FILA_REGISTRO_CONTA_CLIENTE", clienteTransfer);
+		}
+		if(clienteTransfer.getMessage().equals("ATUALIZADO")) {
+			template.convertAndSend("FILA_REGISTRO_CONTA_CLIENTE", clienteTransfer);
+		}
+		if(clienteTransfer.getMessage().equals("FALHA")) {
 			UsuarioDTO usuarioDto = new UsuarioDTO();
 			usuarioDto.setUsuario(clienteTransfer.getClienteDto().getEmail());
 			usuarioDto.setPerfil("CLIENTE");
-			template.convertAndSend("fila-test", usuarioDto);
+			template.convertAndSend("FILA-FALHA-CADASTRO-CLIENTE", usuarioDto);
+		}
+	}
+	
+	@RabbitListener(queues = "")
+	public void respostaCadastroNovaConta(ClienteTransfer clienteTransfer) {
+		UsuarioDTO usuarioDto = new UsuarioDTO();
+		usuarioDto.setUsuario(clienteTransfer.getClienteDto().getEmail());
+		usuarioDto.setPerfil("CLIENTE");
+		switch (clienteTransfer.getMessage()) {
+		case "SUCESSO":
+			template.convertAndSend("", usuarioDto);
+			break;
+		case "FALHA":
+			template.convertAndSend("FILA-FALHA-CADASTRO-CLIENTE", usuarioDto);
+			clienteProducer.enviaCliente(clienteTransfer.getClienteDto(), "REMOVER");
 		}
 	}
 }

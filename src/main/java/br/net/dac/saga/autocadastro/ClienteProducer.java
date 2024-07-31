@@ -3,6 +3,7 @@ package br.net.dac.saga.autocadastro;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 import br.net.dac.saga.dto.ClienteDTO;
@@ -13,8 +14,9 @@ public class ClienteProducer {
 	@Autowired
 	private RabbitTemplate template;
 	
-	public void enviaCliente(ClienteDTO clienteDto, String msg) {
+	public ResponseEntity<Object> enviaCliente(ClienteDTO clienteDto, String msg) {
 		ClienteTransfer clienteTransfer = new ClienteTransfer(clienteDto, msg);
-		template.convertAndSend("cliente-crud", clienteTransfer);
+		template.convertAndSend("FILA-CLIENTE-CRUD", clienteTransfer);
+		return ResponseEntity.status(HttpStatus.CREATED).body("SOLICITAÇÃO DE CADASTRO REALIZADA COM SUCESSO");
 	}
 }
