@@ -51,6 +51,7 @@ public class OrquestradorCadastroGerente {
 	
 	@RabbitListener(queues = "FILA_GERENTE_REMOVIDO")
 	public void recebeGerenteRemovido(GerenteDTO gerenteDto) {
+		template.convertAndSend(gerenteDto.getId().toString());
 		System.out.print(gerenteDto.toString());
 		UsuarioDTO usuarioDto = new UsuarioDTO();
 		usuarioDto.setGerenteId(gerenteDto.getId().toString());
