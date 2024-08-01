@@ -1,18 +1,23 @@
 package br.net.dac.saga.dto;
 
 public class ClienteTransfer {
-	
+
 	private ClienteDTO clienteDto;
 	private String message;
-	
+
 	public ClienteTransfer() {
-		
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	public ClienteTransfer(ClienteDTO clienteDto, String msg) {
+
+
+	public ClienteTransfer(ClienteDTO clienteDto, String message) {
+		super();
 		this.clienteDto = clienteDto;
-		this.message = msg;
+		this.message = message;
 	}
+
+
 
 	public ClienteDTO getClienteDto() {
 		return clienteDto;
@@ -29,6 +34,6 @@ public class ClienteTransfer {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
+
+
 }
