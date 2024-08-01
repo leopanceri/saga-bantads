@@ -26,27 +26,27 @@ public class SagaRest {
 	private GerenteProducer gerenteProducer;
 
 
-	@PostMapping("/cadastro")
+	@PostMapping("/autocadastro")
 	public ResponseEntity<Object> saveCliente(@RequestBody ClienteDTO clienteDto){
 		return clienteProducer.enviaCliente(clienteDto, "CRIAR");
 	}
 
-	@PutMapping("/cliente/update")
+	@PutMapping("/clientes/perfil")
 	public ResponseEntity<Object> alteraCadastro(@RequestBody ClienteDTO clienteDto) {
 		return clienteProducer.enviaCliente(clienteDto, "ATUALIZAR");
 	}
 
-	@PostMapping("/cadastro-gerente")
+	@PostMapping("/administradores/gerentes")
 	public ResponseEntity<Object> cadastroNovoGerente(@RequestBody GerenteDTO gerenteDto){
 		return gerenteProducer.CadastroGerente(gerenteDto);
 	}
 
-	@PutMapping("/gerente/update")
-	public ResponseEntity<Object> atualizaGerente(@RequestBody GerenteDTO gerenteDto){
-		return gerenteProducer.AtualizaGerente(gerenteDto);
+	@PutMapping("/administradores/gerentes/{id}")
+	public ResponseEntity<Object> atualizaGerente(@PathVariable long id, @RequestBody GerenteDTO gerenteDto){
+		return gerenteProducer.AtualizaGerente(id, gerenteDto);
 	}
 
-	@DeleteMapping("/excluir-gerente/{id}")
+	@DeleteMapping("/administradores/gerentes/{id}")
 	public ResponseEntity<Object> exclirGerente(@PathVariable long id){
 		return gerenteProducer.RemoveGerente(id);
 	}

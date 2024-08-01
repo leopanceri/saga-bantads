@@ -17,15 +17,11 @@ public class OrquestradorCadastroGerente {
 	private RabbitTemplate template;
 
 	@Autowired
-    private ObjectMapper objectMapper;
-
-	@Autowired
 	private GerenteProducer gerenteProducer;
 
 	@RabbitListener(queues= "FILA_GERENTE_CADASTRADO")
 	public void recebeGerenteCadastrado(GerenteDTO gerenteDto) {
 		try {
-			//GerenteDTO gerenteDto = objectMapper.readValue(message, GerenteDTO.class);
 			System.out.print("gId: " + gerenteDto.getId() + "Email: " +gerenteDto.getEmail());
 			template.convertAndSend("FILA_ATRIBUI_CONTA_GERENTE", gerenteDto.getId().toString());
 			UsuarioDTO usuarioDto = new UsuarioDTO();
@@ -53,7 +49,14 @@ public class OrquestradorCadastroGerente {
 		}
 	}
 	
-	//@RabbitListener(queues = "FILA_GERENTE_REMOVIDO")
+	@RabbitListener(queues = "FILA_GERENTE_REMOVIDO")
+	public void recebeGerenteRemovido(GerenteDTO gerenteDto) {
+		System.out.print(gerenteDto.toString());
+		UsuarioDTO usuarioDto = new UsuarioDTO();
+		usuarioDto.setGerenteId(gerenteDto.getId().toString());
+		usuarioDto.setUsuario(gerenteDto.getEmail());
+		//template.convertAndSend("FILA_REMOVE_USER", usuarioDto);
+	}
 }
 
 	

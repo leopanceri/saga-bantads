@@ -19,16 +19,16 @@ public class GerenteProducer {
 		return ResponseEntity.status(HttpStatus.CREATED).body("GERENTE CADASTRADO");
 	}
 
-	public ResponseEntity<Object> AtualizaGerente(GerenteDTO gerenteDto){
-		//GerenteTransfer gerenteTransfer = new GerenteTransfer(gerenteDto, msg);
+	public ResponseEntity<Object> AtualizaGerente(Long id, GerenteDTO gerenteDto){
+		gerenteDto.setId(id);
 		template.convertAndSend("FILA_ATUALIZAR_GERENTE", gerenteDto);
-		return ResponseEntity.status(HttpStatus.CREATED).body("GERENTE ATUALIZADO");
+		return ResponseEntity.status(HttpStatus.OK).body("GERENTE ATUALIZADO");
 	}
 
 	public ResponseEntity<Object> RemoveGerente(Long id){
 		//GerenteTransfer gerenteTransfer = new GerenteTransfer(gerenteDto, msg);
 		Message msg = new Message(id.toString().getBytes());
 		template.send("FILA_EXCLUIR_GERENTE", msg);
-		return ResponseEntity.status(HttpStatus.CREATED).body("GERENTE REMOVIDO");
+		return ResponseEntity.status(HttpStatus.OK).body("GERENTE REMOVIDO");
 	}
 }
