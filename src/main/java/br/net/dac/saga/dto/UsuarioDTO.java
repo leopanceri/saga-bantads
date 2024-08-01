@@ -3,20 +3,23 @@ package br.net.dac.saga.dto;
 import java.io.Serializable;
 
 public class UsuarioDTO implements Serializable {
-	
-   
+
+
 	//private static final long serialVersionUID = 1L;
 	private String id;
     private String usuario;
     private String senha;
     private String perfil;
-	
+    private String clienteId;
+    private String contaId;
+    private String gerenteId;
+
     public UsuarioDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public UsuarioDTO(String id, String usuario, String senha, String perfil) {
+	public UsuarioDTO(String id, String usuario, String senha, String perfil, String clienteId, String contaId, String gerenteId) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
@@ -55,7 +58,33 @@ public class UsuarioDTO implements Serializable {
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
 	}
-    
-    
-    
+
+	public String getClienteId() {
+		return clienteId;
+	}
+
+	public void setClienteId(String clienteId) {
+		this.clienteId = clienteId;
+	}
+
+	public String getContaId() {
+		return contaId;
+	}
+
+	public void setContaId(String contaId) {
+		this.contaId = contaId;
+	}
+
+	public String getGerenteId() {
+		return gerenteId;
+	}
+
+	public void setGerenteId(String gerenteId) {
+		this.gerenteId = gerenteId;
+	}
+
+
+
+
+
 }

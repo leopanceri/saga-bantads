@@ -9,10 +9,10 @@ public class EnderecoDTO {
 	private String complemento;
 	private String cidade;
 	private String uf;
-	
-	public EnderecoDTO() {	
+
+	public EnderecoDTO() {
 	}
-	
+
 	public EnderecoDTO(Long id, String cep, String tipo, String logradouro, int numero, String complemento,
 			String cidade, String uf) {
 		this.id = id;
@@ -24,7 +24,7 @@ public class EnderecoDTO {
 		this.cidade = cidade;
 		this.uf = uf;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -73,6 +73,6 @@ public class EnderecoDTO {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	
-	
+
+
 }

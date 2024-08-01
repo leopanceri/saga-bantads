@@ -1,11 +1,11 @@
 package br.net.dac.saga.dto;
 
 public class ClienteContaDTO {
-	
+
 	private long clienteId;
 	private Double salario;
 	private String message;
-	
+
 	public ClienteContaDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -41,6 +41,6 @@ public class ClienteContaDTO {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
+
+
 }

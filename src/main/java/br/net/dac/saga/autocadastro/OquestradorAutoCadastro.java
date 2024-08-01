@@ -5,19 +5,20 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.net.dac.saga.dto.*;
+import br.net.dac.saga.dto.ClienteTransfer;
+import br.net.dac.saga.dto.UsuarioDTO;
 
 @Component
 public class OquestradorAutoCadastro {
-	
+
 	@Autowired
 	private RabbitTemplate template;
-	
+
 	@Autowired
 	private ClienteProducer clienteProducer;
-	
-	
-	
+
+
+
 	@RabbitListener(queues= "FILA-CLIENTE-RESPOSTA")
 	public void recebeClienteCadastrado(ClienteTransfer clienteTransfer) {
 		if(clienteTransfer.getMessage().equals("CRIADO")) {
@@ -35,12 +36,13 @@ public class OquestradorAutoCadastro {
 			template.convertAndSend("FILA-FALHA-CADASTRO-CLIENTE", usuarioDto);
 		}
 	}
-	
-	@RabbitListener(queues = "FILA-CONTA-RESPOSTA")
+
+	@RabbitListener(queues = "FILA_CONTA_RESPOSTA")
 	public void respostaCadastroNovaConta(ClienteTransfer clienteTransfer) {
 		UsuarioDTO usuarioDto = new UsuarioDTO();
 		usuarioDto.setUsuario(clienteTransfer.getClienteDto().getEmail());
 		usuarioDto.setPerfil("CLIENTE");
+		usuarioDto.setClienteId(clienteTransfer.getClienteDto().getId().toString());
 		switch (clienteTransfer.getMessage()) {
 		case "SUCESSO":
 			template.convertAndSend("fila-test", usuarioDto);
@@ -48,6 +50,7 @@ public class OquestradorAutoCadastro {
 		case "FALHA":
 			template.convertAndSend("FILA-FALHA-CADASTRO-CLIENTE", usuarioDto);
 			clienteProducer.enviaCliente(clienteTransfer.getClienteDto(), "REMOVER");
+			break;
 		}
 	}
 }
