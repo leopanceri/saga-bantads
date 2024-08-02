@@ -3,7 +3,7 @@ package br.net.dac.saga.dto;
 public class EnderecoDTO {
 	private Long id;
 	private String cep;
-	private String tipo;
+
 	private String logradouro;
 	private int numero;
 	private String complemento;
@@ -13,11 +13,10 @@ public class EnderecoDTO {
 	public EnderecoDTO() {
 	}
 
-	public EnderecoDTO(Long id, String cep, String tipo, String logradouro, int numero, String complemento,
+	public EnderecoDTO(Long id, String cep, String logradouro, int numero, String complemento,
 			String cidade, String uf) {
 		this.id = id;
 		this.cep = cep;
-		this.tipo = tipo;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
@@ -37,12 +36,7 @@ public class EnderecoDTO {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+	
 	public String getLogradouro() {
 		return logradouro;
 	}
