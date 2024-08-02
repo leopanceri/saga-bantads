@@ -10,21 +10,22 @@ public class UsuarioDTO implements Serializable {
     private String usuario;
     private String senha;
     private String perfil;
-    private String clienteId;
-    private String contaId;
-    private String gerenteId;
+    private String id_cliente;
+    private String id_gerente;
 
     public UsuarioDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public UsuarioDTO(String id, String usuario, String senha, String perfil, String clienteId, String contaId, String gerenteId) {
+	public UsuarioDTO(String id, String usuario, String senha, String perfil, String id_cliente, String id_gerente) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.senha = senha;
 		this.perfil = perfil;
+		this.id_cliente = id_cliente;
+		this.id_gerente = id_gerente;
 	}
 
 	public String getId() {
@@ -59,32 +60,21 @@ public class UsuarioDTO implements Serializable {
 		this.perfil = perfil;
 	}
 
-	public String getClienteId() {
-		return clienteId;
+	public String getId_cliente() {
+		return id_cliente;
 	}
 
-	public void setClienteId(String clienteId) {
-		this.clienteId = clienteId;
+	public void setId_cliente(String id_cliente) {
+		this.id_cliente = id_cliente;
 	}
 
-	public String getContaId() {
-		return contaId;
+	public String getId_gerente() {
+		return id_gerente;
 	}
 
-	public void setContaId(String contaId) {
-		this.contaId = contaId;
+	public void setId_gerente(String id_gerente) {
+		this.id_gerente = id_gerente;
 	}
 
-	public String getGerenteId() {
-		return gerenteId;
-	}
-
-	public void setGerenteId(String gerenteId) {
-		this.gerenteId = gerenteId;
-	}
-
-
-
-
-
+	
 }

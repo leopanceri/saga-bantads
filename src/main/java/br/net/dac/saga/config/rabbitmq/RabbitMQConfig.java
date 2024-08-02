@@ -46,7 +46,17 @@ public class RabbitMQConfig {
     Queue atribuiGerenteConta() {
     	return new Queue("FILA_ATRIBUI_CONTA_GERENTE");   // envia id do gerente para conta
     }
-
+    
+    @Bean 
+    Queue distribuiContasGerente(){
+    	return new Queue("FILA_DISTRIBUI_CONTAS_GERENTE"); // envia id do gerente removido para redidtribuir suas contas
+    }
+    
+    @Bean 
+    Queue updateConta(){
+    	return new Queue("FILA_UPDATE_CONTA"); // envia id do gerente removido para redidtribuir suas contas
+    }
+    
     @Bean
     ClienteProducer clienteProducer() {
         return new ClienteProducer();
