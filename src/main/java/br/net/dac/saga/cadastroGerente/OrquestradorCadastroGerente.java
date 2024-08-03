@@ -25,10 +25,10 @@ public class OrquestradorCadastroGerente {
 			System.out.print("gId: " + gerenteDto.getId() + "Email: " +gerenteDto.getEmail());
 			template.convertAndSend("FILA_ATRIBUI_CONTA_GERENTE", gerenteDto.getId().toString());
 			UsuarioDTO usuarioDto = new UsuarioDTO();
-			usuarioDto.setId_gerente(gerenteDto.getId().toString());
+			usuarioDto.setGerenteId(gerenteDto.getId().toString());
 			usuarioDto.setUsuario(gerenteDto.getEmail());
 			usuarioDto.setPerfil("GERENTE");
-			usuarioDto.setSenha("123456");
+			usuarioDto.setSenha("bantads");
 			template.convertAndSend("fila-test", usuarioDto);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -41,7 +41,7 @@ public class OrquestradorCadastroGerente {
 		try {
 			System.out.print("gId: " + gerenteDto.getId() + "Email: " +gerenteDto.getEmail());
 			UsuarioDTO usuarioDto = new UsuarioDTO();
-			usuarioDto.setId_gerente(gerenteDto.getId().toString());
+			usuarioDto.setGerenteId(gerenteDto.getId().toString());
 			usuarioDto.setUsuario(gerenteDto.getEmail());
 			usuarioDto.setPerfil("GERENTE");
 			template.convertAndSend("fila-test", usuarioDto);
@@ -55,7 +55,7 @@ public class OrquestradorCadastroGerente {
 		template.convertAndSend("FILA_DISTRIBUI_CONTAS_GERENTE",gerenteDto.getId().toString());
 		System.out.print(gerenteDto.toString());
 		UsuarioDTO usuarioDto = new UsuarioDTO();
-		usuarioDto.setId_gerente(gerenteDto.getId().toString());
+		usuarioDto.setGerenteId(gerenteDto.getId().toString());
 		usuarioDto.setUsuario(gerenteDto.getEmail());
 		//template.convertAndSend("FILA_REMOVE_USER", usuarioDto);
 	}

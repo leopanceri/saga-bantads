@@ -24,14 +24,18 @@ public class OquestradorAutoCadastro {
 	@Autowired
     private ObjectMapper objectMapper;
 
+	
+	public static final String FILA_CLIENTE_RESPOSTA = "FILA_CLIENTE_RESPOSTA";
+	public static final String FILA_ATUALIZA_STATUS ="FILA_ATUALIZA_STATUS";
+	public static final String FILA_FALHA_CADASTRO_CLIENTE ="FILA_FALHA_CADASTRO_CLIENTE";
 
-	@RabbitListener(queues= "FILA-CLIENTE-RESPOSTA")
+	@RabbitListener(queues= FILA_CLIENTE_RESPOSTA)
 	public void recebeClienteCadastrado(ClienteTransfer clienteTransfer) {
 		if(clienteTransfer.getMessage().equals("FALHA")) {
 			UsuarioDTO usuarioDto = new UsuarioDTO();
 			usuarioDto.setUsuario(clienteTransfer.getClienteDto().getEmail());
 			usuarioDto.setPerfil("CLIENTE");
-			template.convertAndSend("FILA-FALHA-CADASTRO-CLIENTE", usuarioDto);
+			template.convertAndSend(FILA_FALHA_CADASTRO_CLIENTE, usuarioDto);
 		}else {
 			ClienteContaDTO clienteConta = new ClienteContaDTO();
 			clienteConta.setClienteId(clienteTransfer.getClienteDto().getId());
@@ -48,17 +52,18 @@ public class OquestradorAutoCadastro {
 
 	@RabbitListener(queues = "FILA_CONTA_RESPOSTA")
 	public void respostaCadastroNovaConta(ClienteContaDTO clienteConta) {
-		//ClienteContaDTO clienteConta = objectMapper.readValue(msg, ClienteContaDTO.class);
 		UsuarioDTO usuarioDto = new UsuarioDTO();
 		usuarioDto.setUsuario(clienteConta.getEmail());
+		usuarioDto.setSenha("bantads");
 		usuarioDto.setPerfil("CLIENTE");
-		usuarioDto.setId_cliente(clienteConta.getClienteId().toString());
+		usuarioDto.setClienteId(clienteConta.getClienteId().toString());
+		usuarioDto.setContaId(clienteConta.getIdConta().toString());
 		switch (clienteConta.getMensagem()) {
 		case "SUCESSO":
 			template.convertAndSend("fila-test", usuarioDto);
 			break;
 		case "FALHA":
-			template.convertAndSend("FILA-FALHA-CADASTRO-CLIENTE", usuarioDto);
+			template.convertAndSend(FILA_FALHA_CADASTRO_CLIENTE, usuarioDto);
 			ClienteDTO ct = new ClienteDTO();
 			ct.setId(clienteConta.getClienteId());
 			clienteProducer.enviaCliente(ct, "REMOVER");

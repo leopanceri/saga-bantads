@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class ClienteContaDTO implements Serializable {
 
 	private Long clienteId;
+	private Long idConta;
 	private Double salario;
 	private String email;
 	private String mensagem;
@@ -15,9 +16,10 @@ public class ClienteContaDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ClienteContaDTO(Long clienteId, Double salario, String email, String mensagem) {
+	public ClienteContaDTO(Long clienteId, Long idConta, Double salario, String email, String mensagem) {
 		super();
 		this.clienteId = clienteId;
+		this.idConta = idConta;
 		this.salario = salario;
 		this.email = email;
 		this.mensagem = mensagem;
@@ -29,6 +31,14 @@ public class ClienteContaDTO implements Serializable {
 
 	public void setClienteId(Long clienteId) {
 		this.clienteId = clienteId;
+	}
+
+	public Long getIdConta() {
+		return idConta;
+	}
+
+	public void setIdConta(Long idConta) {
+		this.idConta = idConta;
 	}
 
 	public Double getSalario() {

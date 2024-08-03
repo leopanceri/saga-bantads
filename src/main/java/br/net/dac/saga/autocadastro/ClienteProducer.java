@@ -13,9 +13,11 @@ public class ClienteProducer {
 	@Autowired
 	private RabbitTemplate template;
 
+	public static final String FILA_CLIENTE_CRUD = "FILA_CLIENTE_CRUD";
+	
 	public ResponseEntity<Object> enviaCliente(ClienteDTO clienteDto, String msg) {
 		ClienteTransfer clienteTransfer = new ClienteTransfer(clienteDto, msg);
-		template.convertAndSend("FILA-CLIENTE-CRUD", clienteTransfer);
+		template.convertAndSend(FILA_CLIENTE_CRUD, clienteTransfer);
 		return ResponseEntity.status(HttpStatus.CREATED).body("SOLICITAÇÃO DE CADASTRO REALIZADA COM SUCESSO");
 	}
 }

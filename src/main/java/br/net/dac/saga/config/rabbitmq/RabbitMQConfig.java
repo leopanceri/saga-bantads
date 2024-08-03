@@ -18,21 +18,26 @@ import br.net.dac.saga.cadastroGerente.GerenteProducer;
 
 @Configuration
 public class RabbitMQConfig {
-
+	
+	public static final String FILA_CLIENTE_CRUD = "FILA_CLIENTE_CRUD";
+	public static final String FILA_CLIENTE_RESPOSTA = "FILA_CLIENTE_RESPOSTA";
+	public static final String FILA_ATUALIZA_STATUS ="FILA_ATUALIZA_STATUS";
+	public static final String FILA_FALHA_CADASTRO_CLIENTE ="FILA_FALHA_CADASTRO_CLIENTE";
+	
 										///FILAS CLIENTE
     @Bean
     Queue novoclienteQueue() {
-		return new Queue("FILA-CLIENTE-CRUD");	            //fila que envia o cliente para cadastro ou atualização
+		return new Queue(FILA_CLIENTE_RESPOSTA);	            //fila que envia o cliente para cadastro ou atualização
 	}
 
     @Bean
     Queue clienteCadastradoQueue(){
-    	return new Queue("FILA-CLIENTE-RESPOSTA");          //fila de retorno com o cliente cadastrado no banco
+    	return new Queue(FILA_ATUALIZA_STATUS);          //fila de retorno com o cliente cadastrado no banco
     }
 
     @Bean
     Queue falhaQueue(){
-    	return new Queue("FILA-FALHA-CADASTRO-CLIENTE");    //fila com dados do cliente com erro de cadastro
+    	return new Queue(FILA_FALHA_CADASTRO_CLIENTE);    //fila com dados do cliente com erro de cadastro
     }
     								///FILAS CONTA
     @Bean
