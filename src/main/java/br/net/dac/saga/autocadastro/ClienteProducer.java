@@ -1,6 +1,5 @@
 package br.net.dac.saga.autocadastro;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

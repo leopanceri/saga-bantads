@@ -20,6 +20,7 @@ public class RabbitMQConfig {
 	public static final String FILA_CLIENTE_RESPOSTA = "FILA_CLIENTE_RESPOSTA";
 	public static final String FILA_FALHA_CADASTRO_CLIENTE = "FILA_FALHA_CADASTRO_CLIENTE";
 	public static final String FILA_ATUALIZA_STATUS ="FILA_ATUALIZA_STATUS";
+	
 	public static final String FILA_REGISTRO_CONTA_CLIENTE = "FILA_REGISTRO_CONTA_CLIENTE";
 	public static final String FILA_CONTA_RESPOSTA = "FILA_CONTA_RESPOSTA";
 	public static final String FILA_ATRIBUI_CONTA_GERENTE ="FILA_ATRIBUI_CONTA_GERENTE";
