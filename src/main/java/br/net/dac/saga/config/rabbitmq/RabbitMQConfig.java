@@ -10,6 +10,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+
 import br.net.dac.saga.autocadastro.ClienteProducer;
 import br.net.dac.saga.cadastroGerente.GerenteProducer;
 
@@ -46,7 +49,17 @@ public class RabbitMQConfig {
     Queue atribuiGerenteConta() {
     	return new Queue("FILA_ATRIBUI_CONTA_GERENTE");   // envia id do gerente para conta
     }
-
+    
+    @Bean 
+    Queue distribuiContasGerente(){
+    	return new Queue("FILA_DISTRIBUI_CONTAS_GERENTE"); // envia id do gerente removido para redidtribuir suas contas
+    }
+    
+    @Bean 
+    Queue updateConta(){
+    	return new Queue("FILA_UPDATE_CONTA"); // envia id do gerente removido para redidtribuir suas contas
+    }
+    
     @Bean
     ClienteProducer clienteProducer() {
         return new ClienteProducer();
@@ -79,4 +92,6 @@ public class RabbitMQConfig {
 		rabbitTemplate.setMessageConverter(messageConverter);
 		return rabbitTemplate;
 	}
+
+  
 }

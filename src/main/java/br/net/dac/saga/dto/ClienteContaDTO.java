@@ -1,28 +1,33 @@
 package br.net.dac.saga.dto;
 
-public class ClienteContaDTO {
+import java.io.Serializable;
 
-	private long clienteId;
+public class ClienteContaDTO implements Serializable {
+
+	private Long clienteId;
 	private Double salario;
-	private String message;
+	private String email;
+	private String mensagem;
+	
 
 	public ClienteContaDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ClienteContaDTO(long clienteId, Double salario, String message) {
+	public ClienteContaDTO(Long clienteId, Double salario, String email, String mensagem) {
 		super();
 		this.clienteId = clienteId;
 		this.salario = salario;
-		this.message = message;
+		this.email = email;
+		this.mensagem = mensagem;
 	}
 
-	public long getClienteId() {
+	public Long getClienteId() {
 		return clienteId;
 	}
 
-	public void setClienteId(long clienteId) {
+	public void setClienteId(Long clienteId) {
 		this.clienteId = clienteId;
 	}
 
@@ -34,13 +39,24 @@ public class ClienteContaDTO {
 		this.salario = salario;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+
+	
+	
 
 
 }
