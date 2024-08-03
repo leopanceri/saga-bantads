@@ -50,4 +50,14 @@ public class SagaRest {
 	public ResponseEntity<Object> exclirGerente(@PathVariable long id){
 		return gerenteProducer.RemoveGerente(id);
 	}
+	
+	@PostMapping("/gerentes/clientes/aprovar/{id}")
+	public ResponseEntity<Object> aprovarCliente(@PathVariable long id){
+		return clienteProducer.aprovarCliente(id);
+	}
+	
+	@PostMapping("/gerentes/clientes/rejeitar/{id}")
+	public ResponseEntity<Object> reprovarCliente(@PathVariable long id, @RequestBody String motivo ){
+		return clienteProducer.reprovarCliente(id, motivo);
+	}
 }
