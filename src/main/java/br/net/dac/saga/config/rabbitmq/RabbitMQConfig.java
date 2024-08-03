@@ -10,6 +10,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+
 import br.net.dac.saga.autocadastro.ClienteProducer;
 import br.net.dac.saga.cadastroGerente.GerenteProducer;
 
@@ -89,4 +92,6 @@ public class RabbitMQConfig {
 		rabbitTemplate.setMessageConverter(messageConverter);
 		return rabbitTemplate;
 	}
+
+  
 }

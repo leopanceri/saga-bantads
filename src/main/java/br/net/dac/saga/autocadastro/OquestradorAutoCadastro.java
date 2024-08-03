@@ -5,7 +5,10 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.net.dac.saga.dto.ClienteContaDTO;
+import br.net.dac.saga.dto.ClienteDTO;
 import br.net.dac.saga.dto.ClienteTransfer;
 import br.net.dac.saga.dto.UsuarioDTO;
 
@@ -17,7 +20,9 @@ public class OquestradorAutoCadastro {
 
 	@Autowired
 	private ClienteProducer clienteProducer;
-
+	
+	@Autowired
+    private ObjectMapper objectMapper;
 
 
 	@RabbitListener(queues= "FILA-CLIENTE-RESPOSTA")
@@ -28,28 +33,35 @@ public class OquestradorAutoCadastro {
 			usuarioDto.setPerfil("CLIENTE");
 			template.convertAndSend("FILA-FALHA-CADASTRO-CLIENTE", usuarioDto);
 		}else {
-			ClienteContaDTO clienteConta = new ClienteContaDTO(clienteTransfer.getClienteDto().getId(), clienteTransfer.getClienteDto().getSalario(),
-										clienteTransfer.getClienteDto().getEmail(), clienteTransfer.getMessage());
+			ClienteContaDTO clienteConta = new ClienteContaDTO();
+			clienteConta.setClienteId(clienteTransfer.getClienteDto().getId());
+			clienteConta.setSalario(clienteTransfer.getClienteDto().getSalario());
+			clienteConta.setEmail(clienteTransfer.getClienteDto().getEmail());
+			clienteConta.setMensagem(clienteTransfer.getMessage());
 			System.out.print(clienteTransfer.getClienteDto().getId());
 			System.out.print(clienteTransfer.getClienteDto().getNome());
+			
 			template.convertAndSend("FILA_REGISTRO_CONTA_CLIENTE", clienteConta);
 		}
 		
 	}
 
 	@RabbitListener(queues = "FILA_CONTA_RESPOSTA")
-	public void respostaCadastroNovaConta(ClienteTransfer clienteTransfer) {
+	public void respostaCadastroNovaConta(ClienteContaDTO clienteConta) {
+		//ClienteContaDTO clienteConta = objectMapper.readValue(msg, ClienteContaDTO.class);
 		UsuarioDTO usuarioDto = new UsuarioDTO();
-		usuarioDto.setUsuario(clienteTransfer.getClienteDto().getEmail());
+		usuarioDto.setUsuario(clienteConta.getEmail());
 		usuarioDto.setPerfil("CLIENTE");
-		usuarioDto.setId_cliente(clienteTransfer.getClienteDto().getId().toString());
-		switch (clienteTransfer.getMessage()) {
+		usuarioDto.setId_cliente(clienteConta.getClienteId().toString());
+		switch (clienteConta.getMensagem()) {
 		case "SUCESSO":
 			template.convertAndSend("fila-test", usuarioDto);
 			break;
 		case "FALHA":
 			template.convertAndSend("FILA-FALHA-CADASTRO-CLIENTE", usuarioDto);
-			clienteProducer.enviaCliente(clienteTransfer.getClienteDto(), "REMOVER");
+			ClienteDTO ct = new ClienteDTO();
+			ct.setId(clienteConta.getClienteId());
+			clienteProducer.enviaCliente(ct, "REMOVER");
 			break;
 		}
 	}

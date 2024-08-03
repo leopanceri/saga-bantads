@@ -4,29 +4,30 @@ import java.io.Serializable;
 
 public class ClienteContaDTO implements Serializable {
 
-	private long clienteId;
+	private Long clienteId;
 	private Double salario;
 	private String email;
-	private String action;
+	private String mensagem;
+	
 
 	public ClienteContaDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ClienteContaDTO(long clienteId, Double salario, String email, String action) {
+	public ClienteContaDTO(Long clienteId, Double salario, String email, String mensagem) {
 		super();
 		this.clienteId = clienteId;
 		this.salario = salario;
 		this.email = email;
-		this.action = action;
+		this.mensagem = mensagem;
 	}
 
-	public long getClienteId() {
+	public Long getClienteId() {
 		return clienteId;
 	}
 
-	public void setClienteId(long clienteId) {
+	public void setClienteId(Long clienteId) {
 		this.clienteId = clienteId;
 	}
 
@@ -37,7 +38,6 @@ public class ClienteContaDTO implements Serializable {
 	public void setSalario(Double salario) {
 		this.salario = salario;
 	}
-	
 
 	public String getEmail() {
 		return email;
@@ -47,13 +47,16 @@ public class ClienteContaDTO implements Serializable {
 		this.email = email;
 	}
 
-	public String getMessage() {
-		return action;
+	public String getMensagem() {
+		return mensagem;
 	}
 
-	public void setMessage(String message) {
-		this.action = message;
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
 	}
+
+	
+	
 
 
 }
