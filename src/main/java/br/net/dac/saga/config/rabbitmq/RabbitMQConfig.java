@@ -28,13 +28,20 @@ public class RabbitMQConfig {
 													///FILAS CLIENTE
     @Bean
     Queue novoclienteQueue() {
-		return new Queue(FILA_CLIENTE_RESPOSTA);	            //fila que envia o cliente para cadastro ou atualização
+		return new Queue(FILA_CLIENTE_CRUD);	            //fila que envia o cliente para cadastro ou atualização
 	}
+    
+    @Bean
+    Queue respostaCliente() {
+    	return new Queue(FILA_CLIENTE_RESPOSTA);
+    }
     
     @Bean
     Queue falhaQueue(){
     	return new Queue(FILA_FALHA_CADASTRO_CLIENTE);    //fila com dados do cliente com erro de cadastro
     }
+    
+   
     								///FILAS CONTA
     @Bean
     Queue cadastraNovaContaQueue() {
