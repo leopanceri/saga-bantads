@@ -26,8 +26,6 @@ public class SagaRest {
 	@Autowired
 	private GerenteProducer gerenteProducer;
 
-	@Autowired
-	private EmailService emailService;
 
 	@PostMapping("/autocadastro")
 	public ResponseEntity<Object> saveCliente(@RequestBody ClienteDTO clienteDto){
