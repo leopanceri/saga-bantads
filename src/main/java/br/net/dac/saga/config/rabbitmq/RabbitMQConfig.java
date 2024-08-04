@@ -33,7 +33,7 @@ public class RabbitMQConfig {
     
     @Bean
     Queue respostaCliente() {
-    	return new Queue(FILA_CLIENTE_RESPOSTA);
+    	return new Queue(FILA_CLIENTE_RESPOSTA);          //retorna resposta do serviço de cliente com dados atualizados
     }
     
     @Bean
