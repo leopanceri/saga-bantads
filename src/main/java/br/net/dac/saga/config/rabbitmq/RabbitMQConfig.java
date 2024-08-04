@@ -10,20 +10,17 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-
 import br.net.dac.saga.autocadastro.ClienteProducer;
 import br.net.dac.saga.cadastroGerente.GerenteProducer;
 
 @Configuration
 public class RabbitMQConfig {
-	
+
 	public static final String FILA_CLIENTE_CRUD = "FILA_CLIENTE_CRUD";
 	public static final String FILA_CLIENTE_RESPOSTA = "FILA_CLIENTE_RESPOSTA";
 	public static final String FILA_ATUALIZA_STATUS ="FILA_ATUALIZA_STATUS";
 	public static final String FILA_FALHA_CADASTRO_CLIENTE ="FILA_FALHA_CADASTRO_CLIENTE";
-	
+
 										///FILAS CLIENTE
     @Bean
     Queue novoclienteQueue() {
@@ -49,22 +46,22 @@ public class RabbitMQConfig {
     Queue respostaContaQueue() {
     	return new Queue ("FILA_CONTA_RESPOSTA");          //fila resposta criação de conta
     }
-    
+
     @Bean
     Queue atribuiGerenteConta() {
     	return new Queue("FILA_ATRIBUI_CONTA_GERENTE");   // envia id do gerente para conta
     }
-    
-    @Bean 
+
+    @Bean
     Queue distribuiContasGerente(){
     	return new Queue("FILA_DISTRIBUI_CONTAS_GERENTE"); // envia id do gerente removido para redidtribuir suas contas
     }
-    
-    @Bean 
+
+    @Bean
     Queue updateConta(){
     	return new Queue("FILA_UPDATE_CONTA"); // envia id do gerente removido para redidtribuir suas contas
     }
-    
+
     @Bean
     ClienteProducer clienteProducer() {
         return new ClienteProducer();
@@ -84,7 +81,7 @@ public class RabbitMQConfig {
     ApplicationListener<ApplicationReadyEvent> appListener(RabbitAdmin rabbitAdmin){
 		return event -> rabbitAdmin.initialize();
 	}
-    
+
     @Bean
     Jackson2JsonMessageConverter messageConverter() {
 		return new Jackson2JsonMessageConverter();
@@ -98,5 +95,5 @@ public class RabbitMQConfig {
 		return rabbitTemplate;
 	}
 
-  
+
 }

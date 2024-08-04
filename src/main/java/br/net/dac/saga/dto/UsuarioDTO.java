@@ -87,6 +87,6 @@ public class UsuarioDTO implements Serializable {
 		this.clienteId = clienteId;
 	}
 
-	
-	
+
+
 }

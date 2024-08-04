@@ -14,7 +14,7 @@ public class ClienteProducer {
 	private RabbitTemplate template;
 
 	public static final String FILA_CLIENTE_CRUD = "FILA_CLIENTE_CRUD";
-	
+
 	public ResponseEntity<Object> enviaCliente(ClienteDTO clienteDto, String msg) {
 		ClienteTransfer clienteTransfer = new ClienteTransfer(clienteDto, msg);
 		template.convertAndSend(FILA_CLIENTE_CRUD, clienteTransfer);

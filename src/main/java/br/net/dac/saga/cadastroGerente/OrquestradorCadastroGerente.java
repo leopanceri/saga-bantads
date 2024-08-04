@@ -5,8 +5,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import br.net.dac.saga.dto.GerenteDTO;
 import br.net.dac.saga.dto.UsuarioDTO;
 
@@ -35,7 +33,7 @@ public class OrquestradorCadastroGerente {
 		}
 
 	}
-	
+
 	@RabbitListener(queues = "FILA_GERENTE_ATUALIZADO")
 	public void recebeGerenteAtualizado(GerenteDTO gerenteDto) {
 		try {
@@ -49,7 +47,7 @@ public class OrquestradorCadastroGerente {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@RabbitListener(queues = "FILA_GERENTE_REMOVIDO")
 	public void recebeGerenteRemovido(GerenteDTO gerenteDto) {
 		template.convertAndSend("FILA_DISTRIBUI_CONTAS_GERENTE",gerenteDto.getId().toString());
@@ -61,4 +59,4 @@ public class OrquestradorCadastroGerente {
 	}
 }
 
-	
+

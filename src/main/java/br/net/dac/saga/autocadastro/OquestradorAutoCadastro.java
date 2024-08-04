@@ -20,11 +20,11 @@ public class OquestradorAutoCadastro {
 
 	@Autowired
 	private ClienteProducer clienteProducer;
-	
+
 	@Autowired
     private ObjectMapper objectMapper;
 
-	
+
 	public static final String FILA_CLIENTE_RESPOSTA = "FILA_CLIENTE_RESPOSTA";
 	public static final String FILA_ATUALIZA_STATUS ="FILA_ATUALIZA_STATUS";
 	public static final String FILA_FALHA_CADASTRO_CLIENTE ="FILA_FALHA_CADASTRO_CLIENTE";
@@ -44,10 +44,10 @@ public class OquestradorAutoCadastro {
 			clienteConta.setMensagem(clienteTransfer.getMessage());
 			System.out.print(clienteTransfer.getClienteDto().getId());
 			System.out.print(clienteTransfer.getClienteDto().getNome());
-			
+
 			template.convertAndSend("FILA_REGISTRO_CONTA_CLIENTE", clienteConta);
 		}
-		
+
 	}
 
 	@RabbitListener(queues = "FILA_CONTA_RESPOSTA")
