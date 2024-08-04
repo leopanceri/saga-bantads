@@ -37,7 +37,7 @@ public class OquestradorAutoCadastro {
 			break;
 		case "REJEITADO":
 			emailService.emailClienteRejeitado(clienteTransfer.getClienteDto().getEmail(), clienteTransfer.getClienteDto().getMotivo());
-			break;	
+			break;			
 		default:
 			ClienteContaDTO clienteConta = new ClienteContaDTO();
 			clienteConta.setClienteId(clienteTransfer.getClienteDto().getId());
