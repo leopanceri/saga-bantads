@@ -5,19 +5,25 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import br.net.dac.saga.config.rabbitmq.RabbitMQConfig;
 import br.net.dac.saga.dto.GerenteDTO;
 import br.net.dac.saga.dto.UsuarioDTO;
+import br.net.dac.saga.services.EmailService;
+import br.net.dac.saga.services.SenhaService;
 
 @Component
 public class OrquestradorCadastroGerente {
 
+	public static final String FILA_REGISTRO_USUARIO = "fila-test";
+	
 	@Autowired
 	private RabbitTemplate template;
 
 	@Autowired
-	private GerenteProducer gerenteProducer;
+	private SenhaService senhaService;
+	
+	@Autowired
+	EmailService emailService;
 
 	@RabbitListener(queues= "FILA_GERENTE_CADASTRADO")
 	public void recebeGerenteCadastrado(GerenteDTO gerenteDto) {
@@ -27,15 +33,16 @@ public class OrquestradorCadastroGerente {
 			UsuarioDTO usuarioDto = new UsuarioDTO();
 			usuarioDto.setGerenteId(gerenteDto.getId().toString());
 			usuarioDto.setUsuario(gerenteDto.getEmail());
-			usuarioDto.setPerfil("GERENTE");
-			usuarioDto.setSenha("bantads");
-			template.convertAndSend("fila-test", usuarioDto);
+			usuarioDto.setPerfil(gerenteDto.getCargo());
+			usuarioDto.setSenha(senhaService.passwordGen());
+			emailService.enviaEmailGerente(usuarioDto.getUsuario(), usuarioDto.getSenha());
+			template.convertAndSend(FILA_REGISTRO_USUARIO, usuarioDto);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	@RabbitListener(queues = "FILA_GERENTE_ATUALIZADO")
 	public void recebeGerenteAtualizado(GerenteDTO gerenteDto) {
 		try {
@@ -44,12 +51,12 @@ public class OrquestradorCadastroGerente {
 			usuarioDto.setGerenteId(gerenteDto.getId().toString());
 			usuarioDto.setUsuario(gerenteDto.getEmail());
 			usuarioDto.setPerfil("GERENTE");
-			template.convertAndSend("fila-test", usuarioDto);
+			template.convertAndSend(FILA_REGISTRO_USUARIO, usuarioDto);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
-	
+
 	@RabbitListener(queues = "FILA_GERENTE_REMOVIDO")
 	public void recebeGerenteRemovido(GerenteDTO gerenteDto) {
 		template.convertAndSend("FILA_DISTRIBUI_CONTAS_GERENTE",gerenteDto.getId().toString());
@@ -61,4 +68,4 @@ public class OrquestradorCadastroGerente {
 	}
 }
 
-	
+

@@ -36,7 +36,7 @@ public class EnderecoDTO {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
+
 	public String getLogradouro() {
 		return logradouro;
 	}

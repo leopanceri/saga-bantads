@@ -14,6 +14,7 @@ import br.net.dac.saga.autocadastro.ClienteProducer;
 import br.net.dac.saga.cadastroGerente.GerenteProducer;
 import br.net.dac.saga.dto.ClienteDTO;
 import br.net.dac.saga.dto.GerenteDTO;
+import br.net.dac.saga.services.EmailService;
 
 @CrossOrigin
 @RestController
@@ -25,6 +26,8 @@ public class SagaRest {
 	@Autowired
 	private GerenteProducer gerenteProducer;
 
+	@Autowired
+	private EmailService emailService;
 
 	@PostMapping("/autocadastro")
 	public ResponseEntity<Object> saveCliente(@RequestBody ClienteDTO clienteDto){
@@ -50,4 +53,5 @@ public class SagaRest {
 	public ResponseEntity<Object> exclirGerente(@PathVariable long id){
 		return gerenteProducer.RemoveGerente(id);
 	}
+
 }

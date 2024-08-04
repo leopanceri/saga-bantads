@@ -9,7 +9,7 @@ public class ClienteContaDTO implements Serializable {
 	private Double salario;
 	private String email;
 	private String mensagem;
-	
+
 
 	public ClienteContaDTO() {
 		super();
@@ -65,8 +65,8 @@ public class ClienteContaDTO implements Serializable {
 		this.mensagem = mensagem;
 	}
 
-	
-	
+
+
 
 
 }

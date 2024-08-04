@@ -5,9 +5,9 @@ import java.time.LocalDate;
 
 
 public class ClienteDTO implements Serializable {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
@@ -16,7 +16,7 @@ public class ClienteDTO implements Serializable {
 	private Double salario;
 	private String email;
 	private String telefone;
-	private StatusConta status;
+	//private StatusConta status;
 	private LocalDate statusSet;
 	private String motivo;
 	private EnderecoDTO endereco;
@@ -26,7 +26,7 @@ public class ClienteDTO implements Serializable {
 	}
 
 	public ClienteDTO(Long id, String nome, String cpf, Double salario, String email, String telefone,
-			StatusConta status, LocalDate statusSet, String motivo, EnderecoDTO endereco) {
+			StatusConta status, String motivo, EnderecoDTO endereco) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -34,7 +34,7 @@ public class ClienteDTO implements Serializable {
 		this.salario = salario;
 		this.email = email;
 		this.telefone = telefone;
-		this.status = status;
+		//this.status = status;
 		this.statusSet = statusSet;
 		this.motivo = motivo;
 		this.endereco = endereco;
@@ -87,7 +87,7 @@ public class ClienteDTO implements Serializable {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-
+/*
 	public StatusConta getStatus() {
 		return status;
 	}
@@ -95,7 +95,7 @@ public class ClienteDTO implements Serializable {
 	public void setStatus(StatusConta status) {
 		this.status = status;
 	}
-
+*/
 	public LocalDate getStatusSet() {
 		return statusSet;
 	}

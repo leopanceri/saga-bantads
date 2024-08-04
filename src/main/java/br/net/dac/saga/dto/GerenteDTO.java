@@ -4,21 +4,23 @@ import java.io.Serializable;
 
 public class GerenteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
     private String nome;
     private String email;
     private String cpf;
     private String telefone;
+    private String cargo;  //"GERENTE" ou "ADMIN"
 
     public GerenteDTO() {}
 
-    public GerenteDTO(Long id, String nome, String email, String cpf, String telefone) {
+    public GerenteDTO(Long id, String nome, String email, String cpf, String telefone, String cargo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
         this.telefone = telefone;
+        this.cargo = cargo;
     }
 
     public Long getId() {
@@ -60,4 +62,14 @@ public class GerenteDTO implements Serializable {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+    
+    
 }

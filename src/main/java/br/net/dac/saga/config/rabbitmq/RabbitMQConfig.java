@@ -10,31 +10,27 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-
 import br.net.dac.saga.autocadastro.ClienteProducer;
 import br.net.dac.saga.cadastroGerente.GerenteProducer;
 
 @Configuration
 public class RabbitMQConfig {
-	
+
 	public static final String FILA_CLIENTE_CRUD = "FILA_CLIENTE_CRUD";
 	public static final String FILA_CLIENTE_RESPOSTA = "FILA_CLIENTE_RESPOSTA";
-	public static final String FILA_ATUALIZA_STATUS ="FILA_ATUALIZA_STATUS";
 	public static final String FILA_FALHA_CADASTRO_CLIENTE ="FILA_FALHA_CADASTRO_CLIENTE";
 	
-										///FILAS CLIENTE
+	public static final String FILA_REGISTRO_CONTA_CLIENTE = "FILA_REGISTRO_CONTA_CLIENTE";
+	public static final String FILA_CONTA_RESPOSTA = "FILA_CONTA_RESPOSTA";
+	public static final String FILA_ATRIBUI_CONTA_GERENTE = "FILA_ATRIBUI_CONTA_GERENTE";
+	public static final String FILA_DISTRIBUI_CONTAS_GERENTE = "FILA_DISTRIBUI_CONTAS_GERENTE";
+	
+													///FILAS CLIENTE
     @Bean
     Queue novoclienteQueue() {
 		return new Queue(FILA_CLIENTE_RESPOSTA);	            //fila que envia o cliente para cadastro ou atualização
 	}
-
-    @Bean
-    Queue clienteCadastradoQueue(){
-    	return new Queue(FILA_ATUALIZA_STATUS);          //fila de retorno com o cliente cadastrado no banco
-    }
-
+    
     @Bean
     Queue falhaQueue(){
     	return new Queue(FILA_FALHA_CADASTRO_CLIENTE);    //fila com dados do cliente com erro de cadastro
@@ -42,29 +38,25 @@ public class RabbitMQConfig {
     								///FILAS CONTA
     @Bean
     Queue cadastraNovaContaQueue() {
-    	return new Queue("FILA_REGISTRO_CONTA_CLIENTE");   //fila para cadastro de nova conta
+    	return new Queue(FILA_REGISTRO_CONTA_CLIENTE);   //fila para cadastro de nova conta
     }
 
     @Bean
     Queue respostaContaQueue() {
-    	return new Queue ("FILA_CONTA_RESPOSTA");          //fila resposta criação de conta
+    	return new Queue (FILA_CONTA_RESPOSTA);          //fila resposta criação de conta
     }
-    
+
     @Bean
     Queue atribuiGerenteConta() {
-    	return new Queue("FILA_ATRIBUI_CONTA_GERENTE");   // envia id do gerente para conta
+    	return new Queue(FILA_ATRIBUI_CONTA_GERENTE);   // envia id do gerente para conta
     }
-    
-    @Bean 
+
+    @Bean
     Queue distribuiContasGerente(){
-    	return new Queue("FILA_DISTRIBUI_CONTAS_GERENTE"); // envia id do gerente removido para redidtribuir suas contas
+    	return new Queue(FILA_DISTRIBUI_CONTAS_GERENTE); // envia id do gerente removido para redidtribuir suas contas
     }
-    
-    @Bean 
-    Queue updateConta(){
-    	return new Queue("FILA_UPDATE_CONTA"); // envia id do gerente removido para redidtribuir suas contas
-    }
-    
+
+
     @Bean
     ClienteProducer clienteProducer() {
         return new ClienteProducer();
@@ -84,7 +76,7 @@ public class RabbitMQConfig {
     ApplicationListener<ApplicationReadyEvent> appListener(RabbitAdmin rabbitAdmin){
 		return event -> rabbitAdmin.initialize();
 	}
-    
+
     @Bean
     Jackson2JsonMessageConverter messageConverter() {
 		return new Jackson2JsonMessageConverter();
@@ -98,5 +90,5 @@ public class RabbitMQConfig {
 		return rabbitTemplate;
 	}
 
-  
+
 }
