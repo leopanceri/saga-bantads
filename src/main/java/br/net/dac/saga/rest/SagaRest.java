@@ -54,9 +54,4 @@ public class SagaRest {
 		return gerenteProducer.RemoveGerente(id);
 	}
 
-	@PostMapping("/email")
-	public void testeEmail() {
-		String r = emailService.enviaEmailGerente("LEO", "TESTETGER");
-		System.out.print(r);
-	}
 }
