@@ -60,10 +60,11 @@ public class OquestradorAutoCadastro {
 			ct.setEmail(clienteConta.getEmail());
 			clienteProducer.enviaCliente(ct, "REMOVER");
 			break;
-		case "APROVADO":
+		case "APROVADO_SUCESSO":
 			UsuarioDTO usuarioDto = new UsuarioDTO();
 			usuarioDto.setClienteId(clienteConta.getClienteId().toString());
-			usuarioDto.setContaId(clienteConta.getIdConta().toString());
+			usuarioDto.setContaId(clienteConta.getContaId().toString());
+			usuarioDto.setGerenteId(clienteConta.getIdGerente().toString());
 			usuarioDto.setPerfil("CLIENTE");
 			usuarioDto.setSenha(senhaService.passwordGen());
 			usuarioDto.setUsuario(clienteConta.getEmail());

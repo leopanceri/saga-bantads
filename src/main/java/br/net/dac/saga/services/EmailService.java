@@ -35,7 +35,7 @@ public class EmailService {
 			SimpleMailMessage simpleMessage = new SimpleMailMessage();
 			simpleMessage.setFrom(remetente);
 			simpleMessage.setTo("panceri.leo@gmail.com");
-			simpleMessage.setSubject("Cadastro rejeitado");
+			simpleMessage.setSubject("Cadastro aprovado");
 			simpleMessage.setText("Caro " + destinatario + " seu cadastro como cliente foi aprovado. "
 					+ "Sua senha para acesso é: " + senha);
 			javaMailSender.send(simpleMessage);

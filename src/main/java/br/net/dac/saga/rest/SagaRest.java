@@ -37,7 +37,7 @@ public class SagaRest {
 		return clienteProducer.enviaCliente(clienteDto, "ATUALIZAR");
 	}
 
-	@PostMapping("/administradores/gerentes/novo")
+	@PostMapping("/administradores/gerentes")
 	public ResponseEntity<Object> cadastroNovoGerente(@RequestBody GerenteDTO gerenteDto){
 		return gerenteProducer.CadastroGerente(gerenteDto);
 	}
