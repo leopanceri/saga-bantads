@@ -1,2 +1,2 @@
-Micro serviço responsável pela orquestração das transações entre os diferentes mico serviços do projeto BANTADS.
+Micro serviço responsável pela orquestração das transações entre os diferentes micro serviços do projeto BANTADS.
 - 
