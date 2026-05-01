@@ -2,7 +2,7 @@
 
 Este microserviço é o componente central responsável pela **orquestração de transações distribuídas** no sistema BANTADS. Ele implementa o padrão **SAGA Orquestrado** para garantir a consistência eventual entre os diversos microserviços do ecossistema (Cliente, Conta, Gerente, etc.).
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 O projeto foi construído utilizando as seguintes tecnologias:
 
@@ -13,7 +13,7 @@ O projeto foi construído utilizando as seguintes tecnologias:
 * **RabbitMQ** (Mensageria para comunicação assíncrona entre microserviços)
 * **Maven** (Gestão de dependências)
 
-## 🏗️ Arquitetura e Estrutura
+## Arquitetura e Estrutura
 
 A lógica central da saga reside no pacote `br.net.dac.saga`. A estrutura segue as melhores práticas para sistemas orientados a eventos:
 
@@ -26,3 +26,12 @@ A lógica central da saga reside no pacote `br.net.dac.saga`. A estrutura segue 
 * Docker e Docker Compose (para o RabbitMQ e Banco de Dados).
 * Maven 3.x+.
 * JDK 17+.
+
+### Fluxos de Transação (Sagas)
+Este orquestrador gerencia fluxos críticos como:
+* Auto-cadastro de Cliente: Coordena a criação do perfil, aprovação do gerente e abertura da conta corrente.
+* Atualização de Perfil: Sincroniza dados sensíveis entre as bases de dados de diferentes microserviços.
+* Gestão de Erros: Implementa lógica de compensação para reverter ações anteriores caso uma etapa do fluxo falhe.
+
+
+Este projeto é parte da disciplina de Desenvolvimento de Aplicações Corporativas (DAC).
